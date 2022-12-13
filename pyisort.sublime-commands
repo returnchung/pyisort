@@ -1,0 +1,6 @@
+[
+    {
+        "caption": "Pyisort: isort current file",
+        "command": "pyisort"
+    }
+]
