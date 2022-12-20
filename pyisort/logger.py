@@ -2,6 +2,7 @@ import logging
 import os
 from enum import Enum
 from logging.config import dictConfig
+from typing import Union
 
 from .constants import PACKAGE_NAME
 
@@ -54,7 +55,7 @@ CONFIG = {
 dictConfig(CONFIG)
 
 
-def get_logger(handlers=None):
+def get_logger(handlers: Union[list, None] = None):
     """Get logger and support additional custom handers in different classes."""
     logger = logging.getLogger(name=PACKAGE_NAME)
     hdlr_names = [h.__class__.__name__ for h in logger.handlers]

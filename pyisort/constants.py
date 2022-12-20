@@ -1,3 +1,6 @@
 PACKAGE_NAME = "pyisort"
+PREFERENCE_FILE_NAME = "Preferences.sublime-settings"
 PACKAGE_FILE_NAME = f"{PACKAGE_NAME}.sublime-package"
 SETTINGS_FILE_NAME = f"{PACKAGE_NAME}.sublime-settings"
+DEFAULT_ENCODING = "UTF-8"
+UNDEFINED_ENCODING = "Undefined"
