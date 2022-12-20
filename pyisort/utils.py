@@ -13,6 +13,7 @@ from .constants import (
     UNDEFINED_ENCODING,
 )
 from .logger import get_logger
+from .options import SETTINGS_OPTIONS_MAPPING
 
 logger = get_logger()
 
@@ -105,3 +106,20 @@ def get_encoding(view: sublime.View) -> str:
         logger.debug(f"Preferences encoding: {encoding}")
 
     return encoding
+
+
+def get_options(view: sublime.View):
+    settings = load_settings(view)
+    options = []
+    for name, value in settings.get("options", {}).items():
+        option = SETTINGS_OPTIONS_MAPPING[name]
+        if option and value:
+            if isinstance(value, bool):
+                options.extend([option])
+            elif isinstance(value, list):
+                for v in value:
+                    options.extend([option, v])
+            elif isinstance(value, str):
+                options.extend([option, value])
+
+    return options

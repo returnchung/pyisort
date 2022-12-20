@@ -7,6 +7,7 @@ from .pyisort.logger import get_logger
 from .pyisort.utils import (
     get_encoding,
     get_isort_bin,
+    get_options,
     is_python_syntax,
     load_settings,
     proc_cmd,
@@ -18,31 +19,40 @@ logger = get_logger()
 class PyisortCommand(sublime_plugin.TextCommand):
     def run(self, edit, auto_save=False):
         if not is_python_syntax(self.view):
-            sublime.status_message("pyisort: The current file syntax is not support")
+            err_msg = "Pyisort: The current file syntax is not support"
+            logger.error(err_msg)
+            sublime.status_message(err_msg)
             return
 
         isort_bin = get_isort_bin(self.view)
         if not isort_bin:
-            sublime.status_message("Unable to find isort bin.")
+            err_msg = "Pyisort: Unable to find isort binary."
+            logger.error(err_msg)
+            sublime.status_message(err_msg)
             return
 
         filename = self.view.file_name() or ""
         if not filename:
-            sublime.status_message("Unable to find file to format.")
+            err_msg = "Pyisort: Unable to find file to format."
+            logger.error(err_msg)
+            sublime.status_message(err_msg)
             return
 
+        options = get_options(self.view)
         if auto_save:
             # Run isort format on current file in the background.
-            cmd = [isort_bin, filename]
+            cmd = [isort_bin, filename] + options
             proc_cmd(cmd)
         else:
             # Run isort format and replace current file content.
             encoding = get_encoding(self.view)
             if not encoding:
-                sublime.status_message("Unable to detect this file encoding.")
+                err_msg = "Pyisort: Unable to detect this file encoding."
+                logger.error(err_msg)
+                sublime.status_message(err_msg)
                 return
 
-            cmd = [isort_bin, "-"]
+            cmd = [isort_bin, "-"] + options
             contents = self.view.substr(sublime.Region(0, self.view.size()))
             stdout, stderr = proc_cmd(
                 cmd, cwd=pathlib.Path(filename).parent, input=contents.encode(encoding)
@@ -50,7 +60,7 @@ class PyisortCommand(sublime_plugin.TextCommand):
             if stderr:
                 err_msg = stderr.decode(encoding)
                 logger.error(err_msg)
-                sublime.status_message(err_msg)
+                sublime.status_message(f"Pyisort: {err_msg}")
                 return
 
             region = sublime.Region(0, self.view.size())

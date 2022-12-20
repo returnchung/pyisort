@@ -2,6 +2,13 @@
    "isort_bin": "isort",
    "isort_on_save": false,
    // Support to overwrite isort options
-   "line_length": "",
-   "profile": "",
+   "options": {
+      "line_length": "",
+      "profile": "",
+      "float_to_top": false,
+      "future": [],
+      "thirdparty": [],
+      "project": [],
+      "known_local_folder": []
+   }
 }
