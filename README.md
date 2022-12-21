@@ -3,12 +3,12 @@
 
 Python [isort](https://github.com/PyCQA/isort) formatter for Sublime Text.
 
-### Installation
+## Installation
 
 - Install `pyisort` from Package Control.
 - Restart Sublime.
 
-### Configuration
+## Configuration
 
 Here are some ways to configure the package.
 
