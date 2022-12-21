@@ -1,0 +1,53 @@
+[
+    {
+        "id": "preferences",
+        "children": [
+            {
+                "caption": "Package Settings",
+                "mnemonic": "P",
+                "id": "package-settings",
+                "children": [
+                    {
+                        "caption": "Pyisort",
+                        "children": [
+                            {
+                                "caption": "Settings",
+                                "command": "edit_settings",
+                                "args": {
+                                    "base_file": "${packages}/pyisort/pyisort.sublime-settings"
+                                },
+                            },
+                            {
+                                "caption": "Key Bindings",
+                                "command": "edit_settings",
+                                "platform": "OSX",
+                                "args": {
+                                    "base_file": "${packages}/pyisort/pyisort.sublime-keymap",
+                                    "user_file": "${packages}/User/Default (OSX).sublime-keymap"
+                                },
+                            },
+                            {
+                                "caption": "Key Bindings",
+                                "command": "edit_settings",
+                                "platform": "Linux",
+                                "args": {
+                                    "base_file": "${packages}/pyisort/pyisort.sublime-keymap",
+                                    "user_file": "${packages}/User/Default (Linux).sublime-keymap"
+                                },
+                            },
+                            {
+                                "caption": "Key Bindings",
+                                "command": "edit_settings",
+                                "platform": "Windows",
+                                "args": {
+                                    "base_file": "${packages}/pyisort/pyisort.sublime-keymap",
+                                    "user_file": "${packages}/User/Default (Windows).sublime-keymap"
+                                },
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]
