@@ -131,3 +131,6 @@ dmypy.json
 # sublime project
 *.sublime-project
 *.sublime-workspace
+
+# local
+_src/
