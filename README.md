@@ -35,3 +35,11 @@ Here are some ways to configure the package.
 All pyisort `options` will overwrite the configuration which isort looks for the closest supported [config file](https://pycqa.github.io/isort/docs/configuration/config_files.html), and the option keys and isort commands mapping defines  in [options.py](./pyisort/options.py).
 
 If you want to respect the config file, please do not edit the `options` and keep that as original settings.
+
+
+### Command Palette
+
+| Command | Description |
+| --- | --- |
+| Pyisort: isort current file | Sort import for current view |
+| Preferences: Pyisort Settings | Edit pyisort settings |
