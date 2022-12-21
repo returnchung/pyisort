@@ -1,7 +1,7 @@
 from collections import defaultdict
 
 
-SETTINGS_OPTIONS_MAPPING = defaultdict(
+SETTING_OPTIONS_COMMANDS_MAPPING = defaultdict(
     str,
     {
         "line_length": "--line-length",

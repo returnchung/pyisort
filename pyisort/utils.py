@@ -13,7 +13,7 @@ from .constants import (
     UNDEFINED_ENCODING,
 )
 from .logger import get_logger
-from .options import SETTINGS_OPTIONS_MAPPING
+from .options import SETTING_OPTIONS_COMMANDS_MAPPING
 
 logger = get_logger()
 
@@ -112,7 +112,7 @@ def get_options(view: sublime.View):
     settings = load_settings(view)
     options = []
     for name, value in settings.get("options", {}).items():
-        option = SETTINGS_OPTIONS_MAPPING[name]
+        option = SETTING_OPTIONS_COMMANDS_MAPPING[name]
         if option and value:
             if isinstance(value, bool):
                 options.extend([option])
