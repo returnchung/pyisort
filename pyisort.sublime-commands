@@ -2,5 +2,13 @@
     {
         "caption": "Pyisort: isort current file",
         "command": "pyisort"
+    },
+    {
+        "caption": "Preferences: Pyisort Settings",
+        "command": "edit_settings",
+        "args": {
+            "base_file": "${packages}/pyisort/pyisort.sublime-settings",
+            "default": "// Settings in here override those in \"Pyisort/pyisort.sublime-settings\"\n\n{\n\t$0\n}\n",
+        }
     }
 ]

@@ -1,48 +1,56 @@
 [
     {
         "id": "preferences",
-        "children": [
+        "children":
+        [
             {
                 "caption": "Package Settings",
                 "mnemonic": "P",
                 "id": "package-settings",
-                "children": [
+                "children":
+                [
                     {
                         "caption": "Pyisort",
-                        "children": [
+                        "children":
+                        [
                             {
                                 "caption": "Settings",
                                 "command": "edit_settings",
-                                "args": {
-                                    "base_file": "${packages}/pyisort/pyisort.sublime-settings"
-                                },
+                                "args":
+                                {
+                                    "base_file": "${packages}/pyisort/pyisort.sublime-settings",
+                                    "default": "// Settings in here override those in \"Pyisort/pyisort.sublime-settings\"\n\n{\n\t$0\n}\n"
+                                }
                             },
                             {
                                 "caption": "Key Bindings",
                                 "command": "edit_settings",
                                 "platform": "OSX",
-                                "args": {
+                                "args":
+                                {
                                     "base_file": "${packages}/pyisort/pyisort.sublime-keymap",
                                     "user_file": "${packages}/User/Default (OSX).sublime-keymap"
-                                },
+                                }
                             },
                             {
                                 "caption": "Key Bindings",
                                 "command": "edit_settings",
                                 "platform": "Linux",
-                                "args": {
+                                "args":
+                                {
                                     "base_file": "${packages}/pyisort/pyisort.sublime-keymap",
                                     "user_file": "${packages}/User/Default (Linux).sublime-keymap"
-                                },
+                                }
                             },
                             {
                                 "caption": "Key Bindings",
                                 "command": "edit_settings",
                                 "platform": "Windows",
-                                "args": {
+                                "args":
+                                {
                                     "base_file": "${packages}/pyisort/pyisort.sublime-keymap",
                                     "user_file": "${packages}/User/Default (Windows).sublime-keymap"
-                                },
+                                }
                             }
                         ]
                     }
