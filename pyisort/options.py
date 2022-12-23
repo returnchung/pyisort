@@ -4,6 +4,7 @@ from collections import defaultdict
 SETTING_OPTIONS_COMMANDS_MAPPING = defaultdict(
     str,
     {
+        "multi_line": "--multi-line",
         "line_length": "--line-length",
         "profile": "--profile",
         "float_to_top": "--float-to-top",

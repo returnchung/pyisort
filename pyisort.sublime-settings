@@ -3,6 +3,7 @@
    "isort_on_save": false,
    // Support to overwrite isort options
    "options": {
+      "multi_line": "",
       "line_length": "",
       "profile": "",
       "float_to_top": false,
