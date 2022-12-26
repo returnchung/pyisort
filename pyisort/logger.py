@@ -1,13 +1,12 @@
 import logging
 import os
-from enum import Enum
 from logging.config import dictConfig
-from typing import Union
 
 from .constants import PACKAGE_NAME
+from .typing import Union
 
 
-class LogLevel(str, Enum):
+class LogLevel:
     """LogLevel in case-insensitive."""
 
     CRITICAL = "CRITICAL"
@@ -17,15 +16,26 @@ class LogLevel(str, Enum):
     DEBUG = "DEBUG"
     NOTSET = "NOTSET"
 
-    @classmethod
-    def _missing_(cls, value):
-        _v = value.upper()
-        try:
-            values = list(cls.__members__.values())
-            idx = list(cls.__members__.values()).index(_v)
-            return values[idx]
-        except ValueError:
-            return cls.DEBUG
+    def __init__(self, level: str):
+        _level = level.upper()
+        self._value = (
+            _level
+            if _level
+            and _level
+            in (
+                self.CRITICAL,
+                self.ERROR,
+                self.WARNING,
+                self.INFO,
+                self.DEBUG,
+                self.NOTSET,
+            )
+            else self.DEBUG
+        )
+
+    @property
+    def value(self):
+        return self._value
 
 
 LOG_LEVEL = LogLevel(os.getenv("LOG_LEVEL", "")).value

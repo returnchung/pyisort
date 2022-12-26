@@ -53,14 +53,15 @@ class PyisortCommand(sublime_plugin.TextCommand):
                 return
 
             cmd = [isort_bin, "-"] + options
+            cwd = pathlib.Path(filename).parent.absolute().as_posix()
             contents = self.view.substr(sublime.Region(0, self.view.size()))
             stdout, stderr = proc_cmd(
-                cmd, cwd=pathlib.Path(filename).parent, input=contents.encode(encoding)
+                cmd, cwd=cwd, input=contents.encode(encoding)
             )
             if stderr:
                 err_msg = stderr.decode(encoding)
                 logger.error(err_msg)
-                sublime.status_message(f"Pyisort: {err_msg}")
+                sublime.status_message("Pyisort: {err_msg}".format(err_msg=err_msg))
                 return
 
             region = sublime.Region(0, self.view.size())

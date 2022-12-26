@@ -1,7 +1,7 @@
+import json
 import pathlib
 import subprocess
 from concurrent.futures import ThreadPoolExecutor
-from typing import Any, Dict, List, Tuple, Union
 
 import sublime
 
@@ -14,6 +14,7 @@ from .constants import (
 )
 from .logger import get_logger
 from .options import SETTING_OPTIONS_COMMANDS_MAPPING
+from .typing import Any, Dict, List, Tuple, Union
 
 logger = get_logger()
 
@@ -25,7 +26,7 @@ def get_preference_settings() -> sublime.Settings:
 
 def get_package_settings() -> sublime.Settings:
     settings = sublime.load_settings(SETTINGS_FILE_NAME)
-    logger.debug("sublime package settings: %s", settings.to_dict())
+    logger.debug("Get sublime package settings")
     return settings
 
 
@@ -34,17 +35,25 @@ def get_project_settings(view: sublime.View) -> Dict[str, Any]:
     if not window:
         return {}
 
-    project_settings: Dict[str, Dict[str, Any]] = (
-        (window.project_data() or {}).get("settings", {}).get(PACKAGE_NAME, {})
+    settings = (window.project_data() or {}).get("settings", {}).get(PACKAGE_NAME, {})
+    logger.debug(
+        "Get sublime project settings: {settings}".format(settings=json.dumps(settings))
     )
-    logger.debug("sublime project settings: %s", project_settings)
-    return project_settings
+    return settings
 
 
 def load_settings(view: sublime.View) -> Dict[str, Any]:
     package_settings = get_package_settings()
     project_settings = get_project_settings(view)
-    settings = {**package_settings.to_dict(), **project_settings}
+    settings = {
+        k: package_settings.get(k) for k in project_settings if package_settings.has(k)
+    }
+    settings.update(project_settings)
+    logger.debug(
+        "Load sublime settings finally: {settings}".format(
+            settings=json.dumps(settings)
+        )
+    )
     return settings
 
 
@@ -91,7 +100,7 @@ def get_isort_bin(view: sublime.View) -> Union[str, None]:
     settings = load_settings(view)
     isort_bin = settings.get("isort_bin")
     if isort_bin:
-        return f"{pathlib.Path(isort_bin)}"
+        return pathlib.Path(isort_bin).as_posix()
 
 
 def is_python_syntax(view: sublime.View) -> bool:
@@ -100,10 +109,10 @@ def is_python_syntax(view: sublime.View) -> bool:
 
 def get_encoding(view: sublime.View) -> str:
     encoding = view.encoding()
-    logger.debug(f"View encoding: {encoding}")
+    logger.debug("View encoding: {encoding}".format(encoding=encoding))
     if encoding == UNDEFINED_ENCODING:
         encoding = get_preference_settings().get("default_encoding", "")
-        logger.debug(f"Preferences encoding: {encoding}")
+        logger.debug("Preferences encoding: {encoding}".format(encoding=encoding))
 
     return encoding
 
